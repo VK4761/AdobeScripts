@@ -1,0 +1,108 @@
+var width = 3000;
+var height = 3000;
+var strokeSize = 15;  // This was defined but not used in your script. I assume you might want to use it later.
+
+// Create a new document with specified settings
+var doc = app.documents.add(width, height, 72, "Comic Panels", NewDocumentMode.RGB, DocumentFill.WHITE, 1, BitsPerChannelType.SIXTEEN);
+
+// =======================================================
+// var idtoggleBrushesFlyout = stringIDToTypeID( "toggleBrushesFlyout" );
+//     var desc269 = new ActionDescriptor();
+//     var idStte = charIDToTypeID( "Stte" );
+//     var idStte = charIDToTypeID( "Stte" );
+//     var identer = stringIDToTypeID( "enter" );
+//     desc269.putEnumerated( idStte, idStte, identer );
+// executeAction( idtoggleBrushesFlyout, desc269, DialogModes.NO );
+
+// =======================================================
+var idsetd = charIDToTypeID( "setd" );
+    var desc270 = new ActionDescriptor();
+    var idnull = charIDToTypeID( "null" );
+        var ref2 = new ActionReference();
+        var idBrsh = charIDToTypeID( "Brsh" );
+        var idOrdn = charIDToTypeID( "Ordn" );
+        var idTrgt = charIDToTypeID( "Trgt" );
+        ref2.putEnumerated( idBrsh, idOrdn, idTrgt );
+    desc270.putReference( idnull, ref2 );
+    var idT = charIDToTypeID( "T   " );
+        var desc271 = new ActionDescriptor();
+        var idmasterDiameter = stringIDToTypeID( "masterDiameter" );
+        var idPxl = charIDToTypeID( "#Pxl" );
+        desc271.putUnitDouble( idmasterDiameter, idPxl, 25.000000 );
+    var idBrsh = charIDToTypeID( "Brsh" );
+    desc270.putObject( idT, idBrsh, desc271 );
+executeAction( idsetd, desc270, DialogModes.NO );
+
+
+// =======================================================
+
+// Define the central square
+var squareSize = 2500;  // Updated as per your original requirement
+var top = (height - squareSize) / 2;
+var left = (width - squareSize) / 2;
+
+//square
+drawLine([left, top], [left + squareSize, top]);
+drawLine([left + squareSize, top], [left + squareSize, top + squareSize]);
+drawLine([left + squareSize, top + squareSize], [left, top + squareSize]);
+drawLine([left, top + squareSize], [left, top]);
+
+//===========================================================
+// =======================================================
+var idsetd = charIDToTypeID( "setd" );
+    var desc270 = new ActionDescriptor();
+    var idnull = charIDToTypeID( "null" );
+        var ref2 = new ActionReference();
+        var idBrsh = charIDToTypeID( "Brsh" );
+        var idOrdn = charIDToTypeID( "Ordn" );
+        var idTrgt = charIDToTypeID( "Trgt" );
+        ref2.putEnumerated( idBrsh, idOrdn, idTrgt );
+    desc270.putReference( idnull, ref2 );
+    var idT = charIDToTypeID( "T   " );
+        var desc271 = new ActionDescriptor();
+        var idmasterDiameter = stringIDToTypeID( "masterDiameter" );
+        var idPxl = charIDToTypeID( "#Pxl" );
+        desc271.putUnitDouble( idmasterDiameter, idPxl, 15.000000 );
+    var idBrsh = charIDToTypeID( "Brsh" );
+    desc270.putObject( idT, idBrsh, desc271 );
+executeAction( idsetd, desc270, DialogModes.NO );
+
+
+
+
+
+// Draw the vertical and horizontal lines
+drawLine([left, top + squareSize/2], [left + squareSize, top + squareSize/2]);
+drawLine([left + squareSize/2, top], [left + squareSize/2, top + squareSize]);
+
+
+
+// Function to draw a line
+function drawLine(start, end) {
+    var lineLayer = doc.artLayers.add();
+    doc.activeLayer = lineLayer;
+
+    var startPoint = new PathPointInfo();
+    startPoint.anchor = start;
+    startPoint.leftDirection = start;
+    startPoint.rightDirection = start;
+    startPoint.kind = PointKind.CORNERPOINT;
+
+    var endPoint = new PathPointInfo();
+    endPoint.anchor = end;
+    endPoint.leftDirection = end;
+    endPoint.rightDirection = end;
+    endPoint.kind = PointKind.CORNERPOINT;
+
+    var lineSubPath = new SubPathInfo();
+    lineSubPath.operation = ShapeOperation.SHAPEXOR;
+    lineSubPath.closed = false;
+    lineSubPath.entireSubPath = [startPoint, endPoint];
+
+    var path = doc.pathItems.add("Line", [lineSubPath]);
+
+    // path.strokePath(ToolType.PENCIL);
+    path.strokePath(ToolType.PENCIL);
+    path.strok
+    path.remove();
+}
